@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroLogic AI</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; border: none; }
+        ::-webkit-scrollbar-thumb { background: transparent; border-radius: 10px; transition: background 0.3s; }
+        
+        :hover::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); }
+        .dark :hover::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes cosmicRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .animate-cosmic-spin { animation: cosmicRotate 1s linear infinite; }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+        input, #name, #dob, #time, #location {
+            background-color: transparent !important;
+            background: transparent !important;
+            -webkit-appearance: none;
+            appearance: none;
+            color: #312e81 !important;
+        }
+
+        .dark input, .dark #name, .dark #dob, .dark #time, .dark #location {
+            color: #ffffff !important;
+        }
+
+        ::placeholder { color: rgba(79, 70, 229, 0.6) !important; opacity: 1; }
+        .dark ::placeholder { color: rgba(255, 255, 255, 0.4) !important; opacity: 1; }
+
+        .is-placeholder { color: rgba(79, 70, 229, 0.6) !important; }
+        .dark .is-placeholder { color: rgba(255, 255, 255, 0.4) !important; }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-text-fill-color: #312e81 !important;
+            transition: background-color 5000s ease-in-out 0s !important;
+        }
+        
+        .dark input:-webkit-autofill,
+        .dark input:-webkit-autofill:hover,
+        .dark input:-webkit-autofill:focus,
+        .dark input:-webkit-autofill:active {
+            -webkit-text-fill-color: #ffffff !important;
+            transition: background-color 5000s ease-in-out 0s !important;
+        }
+
+        .flatpickr-calendar { border-radius: 1.25rem !important; backdrop-filter: blur(20px) !important; border: none !important; }
+        .dark .flatpickr-calendar { background: rgba(15, 23, 42, 0.95) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important; }
+        .dark .flatpickr-calendar *, .dark .flatpickr-time input, .dark .flatpickr-time .flatpickr-am-pm { color: #ffffff !important; }
+        
+        .flatpickr-monthDropdown-months, 
+        .numInput.cur-year, 
+        .flatpickr-monthDropdown-month {
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+        }
+
+        .dark .flatpickr-monthDropdown-months option {
+            background: #0f172a !important; 
+            color: #ffffff !important;
+        }
+
+        .dark .flatpickr-day:hover, .dark .flatpickr-day:focus, .dark .flatpickr-time input:hover, .dark .flatpickr-time input:focus, .dark .flatpickr-time .flatpickr-am-pm:hover, .dark .flatpickr-time .flatpickr-am-pm:focus, .dark .numInput:hover { background: rgba(255, 255, 255, 0.1) !important; color: #ffffff !important; border-color: transparent !important; }
+        .flatpickr-time { border-top: 1px solid rgba(255, 255, 255, 0.1) !important; background: transparent !important; }
+        .flatpickr-calendar:before, .flatpickr-calendar:after { display: none !important; }
+        .flatpickr-day.selected { background: #6366f1 !important; border: none !important; }
+        
+        html:not(.dark) .flatpickr-calendar { background: rgba(255, 255, 255, 0.8) !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; }
+        html:not(.dark) .flatpickr-calendar * { color: #0f172a !important; }
+
+        #starCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    </style>
+</head>
+<body id="captureArea" class="m-0 bg-gradient-to-br from-indigo-200 via-purple-100 to-pink-200 dark:from-indigo-900 dark:via-purple-900 dark:to-slate-900 text-slate-800 dark:text-white min-h-screen pt-2 md:pt-2 px-4 md:px-6 pb-4 font-sans antialiased overflow-x-hidden transition-colors duration-500 flex flex-col items-center">
+
+    <canvas id="starCanvas"></canvas>
+
+    <div data-html2canvas-ignore class="relative w-full flex justify-end items-center gap-2 mb-4 md:mb-0 md:absolute md:top-8 md:right-8 md:w-auto z-30">
+        <button id="themeToggleBtn" class="px-3 py-2 bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-xl font-medium text-indigo-900 dark:text-white hover:bg-white/50 dark:hover:bg-white/20 transform hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300">
+            <span id="themeIcon">☀️</span>
+        </button>
+        <button id="refreshBtn" class="px-3 py-2 bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-xl font-medium text-indigo-900 dark:text-white hover:bg-white/50 dark:hover:bg-white/20 transform hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300">
+            <span>🔄</span>
+        </button>
+        <button id="toggleHistoryBtn" class="px-4 py-2 md:px-5 md:py-2 bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-xl font-medium text-indigo-900 dark:text-white hover:bg-white/50 dark:hover:bg-white/20 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 whitespace-nowrap">
+            History 📜
+        </button>
+    </div>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-white/20 dark:bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <div id="historySidebar" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white/40 dark:bg-white/10 backdrop-blur-2xl shadow-2xl z-50 transform -translate-x-[110%] opacity-0 hidden transition-all flex flex-col">
+        <div class="p-6 border-b border-white/50 dark:border-white/10 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-indigo-900 dark:text-purple-200">Session History</h2>
+            <button id="closeHistoryBtn" class="text-indigo-900 dark:text-white text-2xl transform hover:scale-125 transition-transform">&times;</button>
+        </div>
+        <div id="historyList" class="flex-1 overflow-y-auto p-4 space-y-3 text-left"></div>
+        <div class="p-4 border-t border-white/50 dark:border-white/10">
+            <button id="clearSessionBtn" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transform hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)] transition-all">Clear session</button>
+        </div>
+    </div>
+
+    <div class="max-w-4xl w-full mx-auto space-y-5 relative z-10 text-center flex-grow flex flex-col justify-center">
+        <div id="mainHeader">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-purple-300 dark:to-blue-300 transition-all">AstroLogic AI</h1>
+            <p class="text-sm md:text-base text-indigo-800 dark:text-blue-200 opacity-80 mt-2">Decode your personality and future!</p>
+        </div>
+
+        <div id="formContainer" class="max-w-md w-full mx-auto bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-3xl shadow-2xl p-6 md:p-8 animate-fade-in text-left">
+            
+            <div id="zodiacHeader" class="hidden flex items-center justify-center gap-3 pb-2 mb-2 border-b border-white/10">
+                <span id="zodiacIconMain" class="text-5xl"></span>
+                <div class="flex flex-col">
+                    <span id="zodiacEn" class="text-lg font-bold tracking-widest uppercase text-indigo-900 dark:text-purple-200"></span>
+                    <span id="zodiacHi" class="text-sm text-indigo-800 dark:text-blue-300"></span>
+                </div>
+            </div>
+
+            <form id="astroForm" class="space-y-5" autocomplete="off">
+                <div>
+                    <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Full Name</label>
+                    <input type="text" id="name" autocomplete="off" placeholder="Enter name" required class="w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Date of Birth</label>
+                        <input type="text" id="dob" autocomplete="off" required class="is-placeholder w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Time</label>
+                        <input type="text" id="time" autocomplete="off" required class="is-placeholder w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Birth Place</label>
+                    <input type="text" id="location" autocomplete="off" placeholder="Enter birth place" required class="w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                </div>
+                <button type="submit" class="w-full py-4 mt-2 rounded-xl font-bold text-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white transform hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] transition-all active:scale-95">Unlock My Stars ✨</button>
+            </form>
+        </div>
+
+        <div id="loading" class="hidden flex-col items-center py-20 animate-fade-in text-center">
+            <div class="relative w-16 h-16 mx-auto">
+                <div class="absolute inset-0 border-4 border-white/10 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-indigo-500 dark:border-purple-400 border-t-transparent rounded-full animate-cosmic-spin shadow-[0_0_20px_rgba(168,85,247,0.3)]"></div>
+            </div>
+            <div class="mt-6 text-xl text-indigo-800 dark:text-purple-300 font-bold tracking-wider animate-pulse">Consulting with top pandits, astrologers & numerologists...</div>
+        </div>
+
+        <div id="resultWrapper" class="hidden space-y-6 animate-fade-in text-left">
+            <div id="resultHeader" class="flex flex-col md:flex-row justify-between items-center gap-4 bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-3xl p-6 md:p-8 shadow-xl">
+                <h2 class="text-2xl md:text-3xl font-bold text-indigo-900 dark:text-purple-100 text-center md:text-left">
+                    Hello <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-purple-300 dark:to-blue-300" id="userNameSpan"></span>, your predictions:
+                </h2>
+                <div data-html2canvas-ignore class="flex flex-wrap justify-center w-full sm:w-auto gap-2 mt-2 md:mt-0">
+                    <button id="downloadBtn" class="flex-1 sm:flex-none justify-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl hover:scale-105 transition-all shadow-lg flex items-center gap-2 whitespace-nowrap">Download 📥</button>
+                    <button id="backBtn" class="flex-1 sm:flex-none justify-center px-6 py-2 bg-white/40 dark:bg-white/10 border border-white/50 dark:border-white/20 rounded-xl hover:scale-110 hover:bg-white/60 dark:hover:bg-white/20 transition-all text-indigo-900 dark:text-white shadow-lg whitespace-nowrap">← Back</button>
+                </div>
+            </div>
+            <div id="resultContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-24"></div>
+        </div>
+    </div>
+
+    <footer data-html2canvas-ignore class="w-full text-center py-6 mt-auto">
+        <p class="text-indigo-900/60 dark:text-blue-200/60 text-xs md:text-base font-medium">
+                Made with ❤️ by 
+            <a href="https://github.com/deepanshu1420" target="_blank"
+               class="font-semibold text-indigo-900/60 dark:text-blue-200/60 hover:text-indigo-900 dark:hover:text-blue-100 transition-all no-underline">
+                Deepanshu Sharma
+            </a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
