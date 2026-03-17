@@ -277,12 +277,17 @@ document.getElementById('astroForm').addEventListener('submit', async (e) => {
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/predict', { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify(payload) 
-        });
-        const data = await response.json();
+    const API_URL = window.location.hostname === "localhost"
+        ? "http://localhost:3000/api/predict"
+        : "/.netlify/functions/predict";
+
+    const response = await fetch(API_URL, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(payload) 
+    });
+
+    const data = await response.json();
 
         if (response.ok) {
             let history = JSON.parse(sessionStorage.getItem('astroHistory') || '[]');
