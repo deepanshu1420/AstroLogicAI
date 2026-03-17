@@ -41,9 +41,9 @@ Uses **Google Gemini 2.5 Pro API** as a digital astrologer.
 
 ## 🔢 Calculation Logic
 
-* 🔹 **Moolank:** Core personality (from birth date)
-* 🔹 **Bhagyank:** Life path (from full DOB)
-* 🔹 **Rashi Insights:** Sun & Moon positions for emotional and career traits
+* **Moolank:** Core personality (from birth date)
+* **Bhagyank:** Life path (from full DOB)
+* **Rashi Insights:** Sun & Moon positions for emotional and career traits
 
 ---
 
@@ -59,7 +59,7 @@ Uses **Google Gemini 2.5 Pro API** as a digital astrologer.
 ## 🛠️ Tech Stack
 
 * 💻 Frontend: HTML5, Tailwind CSS, JavaScript (ES6+), Flatpickr, html2canvas.
-* ⚙️ Backend: Node.js, Express
+* ⚙️ Backend: Node.js, Express.js
 * 🤖 AI: Google Generative AI (Gemini API).
 * 🚀 Deployment: Netlify (using Serverless Functions).
 
@@ -68,8 +68,8 @@ Uses **Google Gemini 2.5 Pro API** as a digital astrologer.
 ## 🛠️ Setup Instructions
 
 1. Clone the repo
-2. Add `GEMINI_API_KEY` in `.env`
+2. Open .env.example, paste your Gemini API key, rename it to .env and save it!
 3. Run `npm install`
-4. Start with `node server.js` or deploy to Netlify
+4. Start with `npm start` or deploy to Netlify
 
 ---
