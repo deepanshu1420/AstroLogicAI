@@ -1,7 +1,6 @@
 {
   "name": "astrologic-ai",
   "version": "1.0.0",
-  "type": "module",
   "description": "Astrology prediction app using Gemini API",
   "main": "server.js",
   "scripts": {
