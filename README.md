@@ -59,3 +59,36 @@ Uses **Google Gemini 2.5 Pro API** as a digital astrologer.
 2. Open `.env.example`, paste your Gemini API key, rename it to `.env` and save it!
 3. Run `npm install`
 4. Start with `npm start` or deploy to Netlify
+
+## 📸 Screenshots
+
+### 🌠 Landing Page
+
+![Landing](/screenshots/screenshot-1.png)
+Clean, cosmic-themed entry screen where users input their birth details and see real-time zodiac updates.
+
+### ⚙️ AI Processing
+
+![Processing](/screenshots/screenshot-2.png)
+A smooth loading state where the system processes Vedic astrology and numerology using Gemini AI.
+
+### 🔮 Predictions Output
+
+![Results](/screenshots/screenshot-3.png)
+Displays personalized insights (Personality, Career, Love, Improvement) with an option to download results as a high-quality PNG.
+
+### 📜 Session History
+
+![History](/screenshots/screenshot-4.png)
+Sidebar feature that stores and reloads previous predictions within the session.
+
+### 📱 Mobile View
+
+![Mobile](/screenshots/screenshot-5.png)
+Fully responsive design optimized for mobile devices with a seamless user experience.
+
+### 🌗 Light Mode
+
+![Light Mode](/screenshots/screenshot-6.png)
+Clean and minimal light theme for better readability and user preference.
+
