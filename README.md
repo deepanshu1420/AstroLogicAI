@@ -2,12 +2,12 @@
 
 <p>
   <img src="https://img.shields.io/badge/HTML-5-22c55e?style=flat-square&logo=html5&logoColor=white"/>
-  <img src="https://img.shields.io/badge/TailwindCSS-4ade80?style=flat-square&logo=tailwindcss&logoColor=white"/>
-  <img src="https://img.shields.io/badge/JavaScript-86efac?style=flat-square&logo=javascript&logoColor=black"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-ES6-4ade80?style=flat-square&logo=javascript&logoColor=black"/>
   <img src="https://img.shields.io/badge/Node.js-16a34a?style=flat-square&logo=node.js&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Express-65a30d?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Express-4ade80?style=flat-square"/>
   <img src="https://img.shields.io/badge/Gemini-AI-22c55e?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Netlify-10b981?style=flat-square&logo=netlify&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Netlify-14b8a6?style=flat-square&logo=netlify&logoColor=white"/>
 </p>
 
 AstroLogic AI is a full-stack astrology prediction platform that blends **Vedic Astrology + Numerology (Moolank & Bhagyank)** with modern AI to deliver personalized insights on personality, career, love, and growth.
