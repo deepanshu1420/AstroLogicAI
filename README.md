@@ -13,7 +13,7 @@
 AstroLogic AI is a full-stack astrology prediction platform that blends **Vedic Astrology + Numerology (Moolank & Bhagyank)** with modern AI to deliver personalized insights on personality, career, love, and growth.
 
 **🌐 Live Demo**
-👉 [View Live](https://astrologicai.netlify.app)
+[View Live](https://astrologicai.netlify.app)
 
 ## 🚀 Features
 
