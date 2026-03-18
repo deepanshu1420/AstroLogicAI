@@ -1,19 +1,14 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+exports.handler = async (event) => {
+    try {
+        const { name, dob, time, location } = JSON.parse(event.body);
 
-  try {
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { name, dob, time, location } = body;
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-         const prompt = `
+       const prompt = `
 You are an experienced Indian astrologer (pandit style) who explains things in simple, clear, human-friendly English.
 
 You combine:
@@ -75,19 +70,22 @@ Output format:
   ]
 }
 `;
+        const result = await model.generateContent(prompt);
+        let text = result.response.text();
 
-    const result = await model.generateContent(prompt);
-    let text = result.response.text();
+        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-    text = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const jsonData = JSON.parse(text);
 
-    const jsonData = JSON.parse(text);
+        return {
+            statusCode: 200,
+            body: JSON.stringify(jsonData)
+        };
 
-    return res.status(200).json(jsonData);
-
-  } catch (error) {
-    return res.status(500).json({
-      error: "The stars are clouded right now. Please try again later."
-    });
-  }
-}
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: "The stars are clouded right now. Please try again later." })
+        };
+    }
+};
