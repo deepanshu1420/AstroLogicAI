@@ -279,7 +279,7 @@ document.getElementById('astroForm').addEventListener('submit', async (e) => {
     try {
     const API_URL = window.location.hostname === "localhost"
         ? "http://localhost:3000/api/predict"
-        : "/.netlify/functions/predict";
+        : "/api/predict";
 
     const response = await fetch(API_URL, { 
         method: 'POST', 
