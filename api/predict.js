@@ -8,7 +8,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, dob, time, location } = req.body;
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const { name, dob, time, location } = body;
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
