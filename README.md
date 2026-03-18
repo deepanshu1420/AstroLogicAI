@@ -56,6 +56,6 @@ Uses **Google Gemini 2.5 Pro API** as a digital astrologer.
 ## 🛠️ Setup Instructions
 
 1. Clone the repo
-2. Open .env.example, paste your Gemini API key, rename it to .env and save it!
+2. Open `.env.example`, paste your Gemini API key, rename it to `.env` and save it!
 3. Run `npm install`
 4. Start with `npm start` or deploy to Netlify
