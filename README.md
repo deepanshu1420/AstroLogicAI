@@ -1,3 +1,13 @@
+<p align="left">
+  <img src="https://img.shields.io/badge/HTML-5-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-blue?style=flat-square"/>
+  <img src="https://img.shields.io/badge/JavaScript-ES6-yellow?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Node.js-green?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Express-black?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Gemini-AI-purple?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Netlify-Serverless-teal?style=flat-square"/>
+</p>
+
 # 🌌 AstroLogic AI
 
 AstroLogic AI is a full-stack astrology prediction platform that blends **Vedic Astrology + Numerology (Moolank & Bhagyank)** with modern AI to deliver personalized insights on personality, career, love, and growth.
