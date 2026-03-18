@@ -72,7 +72,7 @@ Uses **Google Gemini 2.5 Pro API** as a digital astrologer.
 ![Processing](/screenshots/screenshot-2.png)
 *A smooth loading state where the system processes Vedic astrology and numerology using Gemini AI.*
 
-### 🔮 Predictions Output
+### 🔮 Predictions Output + Download Results
 
 ![Results](/screenshots/screenshot-3.png)
 *Displays personalized insights (Personality, Career, Love, Improvement) with an option to download results as a high-quality PNG.*
