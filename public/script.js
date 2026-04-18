@@ -92,6 +92,8 @@ const timePicker = flatpickr("#time", {
     noCalendar: true, 
     dateFormat: "h:i K", 
     disableMobile: "true",
+    onOpen: () => { document.getElementById('time').classList.add('ring-2', 'ring-purple-400/50'); },
+    onClose: () => { document.getElementById('time').classList.remove('ring-2', 'ring-purple-400/50'); },
     onChange: (sd, ds) => {
         const el = document.getElementById('time');
         ds ? el.classList.remove('is-placeholder') : el.classList.add('is-placeholder');
@@ -258,12 +260,31 @@ historyList.addEventListener('click', (e) => {
 });
 
 // --- API Submission Logic ---
+// --- Custom Toast ---
+function showToast(msg) {
+    const toast = document.getElementById('customToast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.remove('hidden');
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(() => toast.classList.add('hidden'), 3000);
+}
+
 document.getElementById('astroForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = e.target.querySelector('button');
     const loading = document.getElementById('loading');
     const resultContainer = document.getElementById('resultContainer');
-    
+
+    const nameVal = document.getElementById('name').value.trim();
+    const dobVal = document.getElementById('dob').value;
+    const timeVal = document.getElementById('time').value;
+    const locationVal = document.getElementById('location').value.trim();
+
+    if (!nameVal)                           { showToast("Please fill out your Full Name"); return; }
+    if (!dobVal || dobVal === "00-00-0000") { showToast("Please fill out your Date of Birth"); return; }
+    if (!timePicker.selectedDates.length)   { showToast("Please fill out your Birth Time"); return; }
+    if (!locationVal)                       { showToast("Please fill out your Birth Place"); return; }
+
     btn.disabled = true; 
     formContainer.classList.add('hidden'); 
     resultWrapper.classList.add('hidden'); 

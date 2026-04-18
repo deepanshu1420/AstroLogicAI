@@ -111,7 +111,7 @@
             <span id="themeIcon">☀️</span>
         </button>
         <button id="refreshBtn" class="px-3 py-2 bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-xl font-medium text-indigo-900 dark:text-white hover:bg-white/50 dark:hover:bg-white/20 transform hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300">
-            <span>🔄</span>
+            <span>Refresh 🔄</span>
         </button>
         <button id="toggleHistoryBtn" class="px-4 py-2 md:px-5 md:py-2 bg-white/30 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 rounded-xl font-medium text-indigo-900 dark:text-white hover:bg-white/50 dark:hover:bg-white/20 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 whitespace-nowrap">
             History 📜
@@ -150,21 +150,21 @@
             <form id="astroForm" class="space-y-5" autocomplete="off">
                 <div>
                     <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Full Name</label>
-                    <input type="text" id="name" autocomplete="off" placeholder="Enter full name" required class="w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                    <input type="text" id="name" autocomplete="off" placeholder="Enter full name" class="w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Date of Birth</label>
-                        <input type="text" id="dob" autocomplete="off" required class="is-placeholder w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                        <input type="text" id="dob" autocomplete="off" class="is-placeholder w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Time</label>
-                        <input type="text" id="time" autocomplete="off" required class="is-placeholder w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                        <input type="text" id="time" autocomplete="off" class="is-placeholder w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-indigo-900 dark:text-purple-200 mb-1">Birth Place</label>
-                    <input type="text" id="location" autocomplete="off" placeholder="Enter birth place" required class="w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
+                    <input type="text" id="location" autocomplete="off" placeholder="Enter birth place" class="w-full px-4 py-3 bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-purple-400/50 transition-all">
                 </div>
                 <button type="submit" class="w-full py-4 mt-2 rounded-xl font-bold text-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white transform hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] transition-all active:scale-95">Unlock My Stars ✨</button>
             </form>
@@ -201,7 +201,9 @@
             </a>
         </p>
     </footer>
-
+    <div id="customToast" class="hidden fixed top-5.5 left-0 right-0 mx-auto w-fit z-50 px-4 py-2 bg-red-500/90 backdrop-blur-xl text-white font-semibold rounded-xl shadow-xl text-sm transition-all animate-fade-in">
+        ⚠️ <span id="toastMsg"></span>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
