@@ -54,12 +54,14 @@
 
         .is-placeholder { color: rgba(79, 70, 229, 0.6) !important; }
         .dark .is-placeholder { color: rgba(255, 255, 255, 0.4) !important; }
-
+        
         input:-webkit-autofill,
         input:-webkit-autofill:hover, 
         input:-webkit-autofill:focus, 
         input:-webkit-autofill:active {
             -webkit-text-fill-color: #312e81 !important;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+            box-shadow: 0 0 0px 1000px transparent inset !important;
             transition: background-color 5000s ease-in-out 0s !important;
         }
         
@@ -68,6 +70,8 @@
         .dark input:-webkit-autofill:focus,
         .dark input:-webkit-autofill:active {
             -webkit-text-fill-color: #ffffff !important;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+            box-shadow: 0 0 0px 1000px transparent inset !important;
             transition: background-color 5000s ease-in-out 0s !important;
         }
 

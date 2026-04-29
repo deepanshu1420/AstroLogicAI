@@ -161,14 +161,6 @@ const userNameSpan = document.getElementById('userNameSpan');
 backBtn.addEventListener('click', () => { 
     resultWrapper.classList.add('hidden'); 
     formContainer.classList.remove('hidden'); 
-    
-    setTimeout(() => {
-        document.querySelectorAll('input').forEach(input => {
-            input.style.transition = 'none';
-            input.offsetHeight; 
-            input.style.transition = '';
-        });
-    }, 10);
 });
 
 // --- Sidebar & History Logic ---
