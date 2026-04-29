@@ -75,7 +75,13 @@ Output format:
 
         text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-        const jsonData = JSON.parse(text);
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+
+        if (!jsonMatch) {
+          throw new Error("Invalid JSON response from AI");
+        }
+
+        const jsonData = JSON.parse(jsonMatch[0]);
 
         return {
             statusCode: 200,
@@ -83,9 +89,12 @@ Output format:
         };
 
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "The stars are clouded right now. Please try again later." })
-        };
+      console.error("REAL ERROR:", error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: "The stars are clouded right now. Please try again later."
+        })
+      };
     }
 };
