@@ -90,8 +90,30 @@ Output format:
 
     } catch (error) {
       console.error("REAL ERROR:", error);
+      
+      const isQuotaError =
+      error?.status === 429 ||
+      error?.code === 429 ||
+      error?.message?.includes("Too Many Requests") ||
+      error?.message?.includes("quota");
+      
+      if (isQuotaError) {
+        return {
+          statusCode: 200,
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            error: "Too many requests. Please try again after some time or tomorrow."
+          })
+        };
+      }
+      
       return {
         statusCode: 500,
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           error: "The stars are clouded right now. Please try again later."
         })

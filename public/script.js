@@ -329,7 +329,7 @@ document.getElementById('astroForm').addEventListener('submit', async (e) => {
             formContainer.classList.remove('hidden'); 
         }
     } catch (err) { 
-        alert("Failed to connect to server."); 
+        alert("Server busy or quota limit reached"); 
         loading.classList.replace('flex', 'hidden'); 
         formContainer.classList.remove('hidden'); 
     } finally { 

@@ -91,14 +91,33 @@ Output format:
         // Our safety net cleans up any extra formatting Gemini might add
         text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-        const jsonData = JSON.parse(text);
-        res.json(jsonData);
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        
+        if (!jsonMatch) {
+          throw new Error("Invalid JSON response from AI");
+        }
+        
+        const jsonData = JSON.parse(jsonMatch[0]);
+        return res.json(jsonData);
 
     } catch (error) {
-        console.error("CRITICAL ERROR:", error);
-        res.status(500).json({ error: "The stars are clouded right now. Please try again later." });
+      console.error("REAL ERROR:", error);
+      const isQuotaError =
+      error?.status === 429 ||
+      error?.code === 429 ||
+      error?.message?.includes("Too Many Requests") ||
+      error?.message?.includes("quota");
+      
+      if (isQuotaError) {
+        return res.status(200).json({
+          error: "Too many requests. Please try again after some time or tomorrow."
+        });
+      }
+      return res.status(500).json({
+        error: "The stars are clouded right now. Please try again later."
+      });
     }
-});
+  });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
